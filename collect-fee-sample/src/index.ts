@@ -36,17 +36,24 @@ const swapWithFee = async (from: string, to: string, inputAmt: string) => {
     console.log('No route available');
     return;
   }
-  const payload = quotes[0].route.makeSwapWithFeesPayload(
-    parseFloat(inputAmt), 
-    0, // min output
-    new HexString("89576037b3cc0b89645ea393a47787bb348272c76d6941c574b053672b848039"),  // send fee to address
-    0.001, // amount of fee to charge
-    true // make json payload
-  ) as Types.TransactionPayload_EntryFunctionPayload;
 
-  const txn = await client.generateTransaction(account.address(), payload);
-  const txid = await client.signAndSubmitTransaction(account, txn);
-  console.log(txid);
+  console.log(quotes)
+  
+  // const payload = quotes[0].route.makeSwapWithFeesPayload(
+  //   parseFloat(inputAmt), 
+  //   0, // min output
+  //   // defaultでhippoのアドレスにswapした結果が送られる地獄、必ず変えてコンパイルする
+  //   // というかそもそもhippoのアカウントはこれっぽい,普通に金抜かれるだけなので実行しないで
+  //   // (正)0x890812a6bbe27dd59188ade3bbdbe40a544e6e104319b7ebc6617d3eb947ac07
+  //   // new HexString("89576037b3cc0b89645ea393a47787bb348272c76d6941c574b053672b848039"),  // send fee to address
+  //   account.address(),
+  //   0.001, // amount of fee to charge
+  //   true // make json payload
+  // ) as Types.TransactionPayload_EntryFunctionPayload;
+
+  // const txn = await client.generateTransaction(account.address(), payload);
+  // const txid = await client.signAndSubmitTransaction(account, txn);
+  // console.log(txid);
 }
 
 cmd.command("swap-with-fee")
